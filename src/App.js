@@ -2,18 +2,20 @@ import "./App.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Container } from "@material-ui/core";
+import Header from "./components/Header";
 
 function App() {
-  const [word, setword] = useState("");
-  const [meanings, setmeanings] = useState([]);
+  const [word, setWord] = useState("");
+  const [meanings, setMeanings] = useState([]);
+  const [category, setCategory] = useState("en")
 
   const dictionaryApi = async () => {
     try {
       const data = await axios.get(
-        "https://api.dictionaryapi.dev/api/v2/entries/en/plane"
+        `https://api.dictionaryapi.dev/api/v2/entries/${category}/${word}`
       );
 
-      setmeanings(data.data);
+      setMeanings(data.data);
     } catch (error) {
       console.log(error);
     }
@@ -23,7 +25,7 @@ function App() {
 
   useEffect(() => {
     dictionaryApi();
-  }, []);
+  }, [word, category]);
 
   return (
     <div
@@ -34,7 +36,12 @@ function App() {
         maxWidth="md"
         style={{ display: "flex", flexDirection: "column", height: "100vh" }}
       >
-        Dictionary
+      <Header 
+      category={category} 
+      setCategory={setCategory}
+      word={word}
+      setWord={setWord} 
+      />
       </Container>
     </div>
   );
