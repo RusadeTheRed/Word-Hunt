@@ -10,7 +10,7 @@
     overflow-x: hidden;
 }
 .subTitle {
-    font-size: 5vh;
+    font-size: 10vh;
     font-family: 'montserrat', sans-serif;
 }
 @media (max-width:900px) {
