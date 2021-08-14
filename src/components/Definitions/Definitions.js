@@ -1,11 +1,11 @@
 import React from "react";
 import "./Definitions.css";
 
-const Definitions = ({ word, category, meanings }) => {
+const Definitions = ({ word, category, meanings, LightMode }) => {
   return (
     <div className="meanings">
       {meanings[0] && word && category === "en" && (
-        <audio
+        <audio // seems to work some of the time not sure why the example doesnt seem to come up
           src={meanings[0].phonetics[0] && meanings[0].phonetics[0].audio}
           style={{ backgroundColor: "#fff", borderRadius: 10 }}
           controls
@@ -22,7 +22,10 @@ const Definitions = ({ word, category, meanings }) => {
             item.definitions.map((def) => (
               <div
                 className="singleMean"
-                style={{ backgroundColor: "white", color: "black" }}
+                style={{
+                  backgroundColor: LightMode ? "#3b5360" : "white",
+                  color: LightMode ? "white" : "black",
+                }}
               >
                 <b>{def.definition}</b>
                 <hr style={{ backgroundColor: "black", width: "100%" }} />

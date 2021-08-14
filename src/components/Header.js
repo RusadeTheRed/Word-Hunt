@@ -8,33 +8,33 @@ import React from "react";
 import "./Header.css";
 import categories from "../data/category";
 
-const Header = ({ setCategory, category, word, setWord}) => {
+const Header = ({ setCategory, category, word, setWord, LightMode }) => {
   // using createTheme since createMuiTheme is depreciated
   const darkTheme = createTheme({
     palette: {
       primary: {
-        main: "#fff",
+        main: LightMode ? "#000" : "#fff",
       },
-      type: "dark",
+      type: LightMode ? "light" : "dark",
     },
   });
 
-  const handleChange = (language) =>  {
+  const handleChange = (language) => {
     setCategory(language);
-    setWord('')
-  }
+    setWord("");
+  };
 
   return (
     <div className="header">
       <span className="title">{word ? word : "Word Hunt"}</span>
       <div className="inputs">
         <ThemeProvider theme={darkTheme}>
-          <TextField 
+          <TextField
             className="search"
             label="Search a Word"
             value={word}
-            onChange={(e) => setWord(e.target.value)} 
-            />
+            onChange={(e) => setWord(e.target.value)}
+          />
           <TextField
             className="select"
             select
@@ -43,9 +43,11 @@ const Header = ({ setCategory, category, word, setWord}) => {
             onChange={(e) => handleChange(e.target.value)}
           >
             {categories.map((option) => {
-             return <MenuItem key={option.label} value={option.label}>
-                {option.value}
-                </MenuItem>;
+              return (
+                <MenuItem key={option.label} value={option.label}>
+                  {option.value}
+                </MenuItem>
+              );
             })}
           </TextField>
         </ThemeProvider>
